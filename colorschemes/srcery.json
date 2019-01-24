@@ -1,0 +1,25 @@
+{
+    "name": "srcery",
+    "url": "https://github.com/srcery-colors/srcery-vim",
+    "foreground": "#1C1B19",
+    "background": "#FCE8C3",
+    "palette": [
+        "#1C1B19",
+        "#EF2F27",
+        "#519F50",
+        "#FBB829",
+        "#2C78BF",
+        "#E02C6D",
+        "#0AAEB3",
+        "#918175",
+        "#2D2B28",
+        "#F75341",
+        "#98BC37",
+        "#FED06E",
+        "#529CE0",
+        "#FF5C8F",
+        "#53FDE9",
+        "#FCE8C3"
+    ]
+}
+
