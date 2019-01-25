@@ -36,11 +36,11 @@ class Color(object):
         return False
 
     @property
-    def rgb(self):
+    def rgb(self) -> tuple:
         return self._rgb or hex2rgb(self._hex)
 
     @property
-    def hex(self):
+    def hex(self) -> str:
         return self._hex or f'#{rgb2hex(*self._rgb)}'
 
 
