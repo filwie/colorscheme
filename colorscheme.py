@@ -41,7 +41,7 @@ class Color(object):
 
     @property
     def hex(self):
-        return self._hex or rgb2hex(self._rgb)
+        return self._hex or f'#{rgb2hex(*self._rgb)}'
 
 
 if __name__ == '__main__':

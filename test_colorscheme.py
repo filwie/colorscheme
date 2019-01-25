@@ -53,9 +53,11 @@ def test_conversion_to_rgb(test_input, expected):
     assert colorscheme.Color(test_input).rgb == expected
 
 
-'''
-    ((123, 123, 123), '#7b7b77b'),
+@pytest.mark.parametrize('test_input, expected', [
+    ((123, 123, 123), '#7b7b7b'),
     ((12, 12, 12), '#0c0c0c'),
-    ('#123123', (18, 49, 35)),
-    ('#eee123', (238, 225, 35)),
-    '''
+    ('#123123', '#123123'),
+    ('#eee123', '#eee123'),
+])
+def test_conversion_to_hex(test_input, expected):
+    assert colorscheme.Color(test_input).hex == expected
