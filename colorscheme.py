@@ -13,23 +13,27 @@ COLORSCHEMES_DIR = SCRIPT_PATH.parent / 'colorschemes'
 
 
 class Color(object):
-    def __init__(self, hex_or_rgb, number=None, name=None):
+    def __init__(self, hex_or_rgb):
+        self._rgb, self._hex = None, None
         if Color.is_rgb(hex_or_rgb):
             self._rgb = hex_or_rgb
         elif Color.is_hex(hex_or_rgb):
             self._hex = hex_or_rgb
         else:
             raise TypeError('Expected tuple or string, got: ', type(hex_or_rgb))
-        self.number = number
-        self.name = name
 
     @staticmethod
     def is_rgb(c: Tuple[int]) -> bool:
-        return bool(type(c) in (list, tuple) and len(c) == 3)
+        if any(isinstance(c, t) for t in (tuple, list)):
+            if len(c) == 3:
+                return all(0 < f < 255 for f in c)
+        return False
 
     @staticmethod
     def is_hex(c: str) -> bool:
-        return bool(re.match(r'#[0-9a-eA-E]{6}', c))
+        if isinstance(c, str):
+            return bool(re.match(r'#[0-9a-eA-E]{6}', str(c)))
+        return False
 
     @property
     def rgb(self):
@@ -37,7 +41,7 @@ class Color(object):
 
     @property
     def hex(self):
-        return self._hex or rgb2hex(self.rgb)
+        return self._hex or rgb2hex(self._rgb)
 
 
 if __name__ == '__main__':
