@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import argparse
-import os
 import sys
 
 try:
@@ -15,20 +14,30 @@ COLORS = [f'{{{{ color{n} }}}}' for n in range(16)]
 def get_cli_args():
     parser = argparse.ArgumentParser(
         description='Display color names in curly braces, copy output to clipboard')
-    parser.add_argument('-p', '--pairs')
+    parser.add_argument('-p', '--pairs', action='store_true')
     parser.add_argument('-n', '--newlines', type=int, default=0, dest='newlines')
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 
-def norm_bright_pairs(newlines_between_pairs=0):
-    for n, b in zip(COLORS[0:8], COLORS[8:16]):
-        print(n)
-        print(b)
-        for nl in range(newlines_between_pairs):
-            print()
+def list_color_pairs(newlines=0):
+    result = ''
+    for neutral, bright in zip(COLORS[0:8], COLORS[8:16]):
+        result += f'{neutral}\n{bright}\n' + '\n' * newlines
+    return result.strip()
+
+
+def list_colors(newlines_between_pairs=0):
+    result = ''
+    for color in COLORS:
+        result += color + '\n'
+    return result.strip()
 
 
 if __name__ == '__main__':
     args = get_cli_args()
-    norm_bright_pairs(args.newlines)
+    if args.pairs:
+        output = list_color_pairs(args.newlines)
+    else:
+        output = list_colors(args.newlines)
+    clipboard.copy(output)
+    print(output)
